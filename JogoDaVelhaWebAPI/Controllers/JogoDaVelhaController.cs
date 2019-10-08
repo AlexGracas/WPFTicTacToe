@@ -12,14 +12,29 @@ namespace JogoDaVelhaWebAPI.Controllers
     [Route("api/JogoDaVelha")]
     public class JogoDaVelhaController : Controller
     {
+        
+        /// <summary>
+        /// Váriavel estática para representar o jogo da velha. 
+        /// Está é uma solução simples e didática para demonstrar a utilização
+        /// de API Rest. A utilização de variáves estáticas é algo a ser 
+        /// evitado.
+        /// </summary>
         static TabuleiroJogo Jogo { get; set; }
 
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jogador">O jogador realizando a jogada.</param>
+        /// <param name="posX">A coluna.</param>
+        /// <param name="posY">A fileira.</param>
+        /// <returns></returns>
         [HttpGet("{jogador}/{posX}/{posY}")]
         public String Jogar(int jogador, int posX, int posY)
         {
             Jogo.Jogar(jogador, posX, posY);
-            switch (Jogo.VerificarGanhador())
+            switch (Jogo.Ganhador)
             {
                 case 0:
                     return "Jogo em andamento";
@@ -33,6 +48,10 @@ namespace JogoDaVelhaWebAPI.Controllers
             return "";
         }
 
+        /// <summary>
+        /// Recomeça o jogo.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Reset")]
         public String Reiniciar()
         {
@@ -40,7 +59,11 @@ namespace JogoDaVelhaWebAPI.Controllers
             return "Jogo Reiniciado";
         }
 
-
+        /// <summary>
+        /// Obtem o objeto Tabuleiro. Ele será serializado no formato JSON.
+        /// É possível saber o formato pela anotação "Produces" no nome da classe.
+        /// </summary>
+        /// <returns>Retorna o Tabuleiro.</returns>
         [HttpGet()]
         public TabuleiroJogo Get()
         {

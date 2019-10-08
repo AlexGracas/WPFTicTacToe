@@ -44,21 +44,21 @@ namespace JogoDaVelhaTeste
                 new int[] { 0, 0, 0 },
                 new int[] { 0, 0, 0 } });
 
-            Assert.AreEqual(tabuleiro.VerificarGanhador(), 1);
+            Assert.AreEqual(tabuleiro.Ganhador, 1);
 
             tabuleiro = new TabuleiroJogo(new int[][] {
                 new int[]{ 0, 1, 1 },
                 new int[] { 0, 0, 0 },
                 new int[] { 2, 2, 2 } });
 
-            Assert.AreEqual(2, tabuleiro.VerificarGanhador());
+            Assert.AreEqual(2, tabuleiro.Ganhador);
 
             tabuleiro = new TabuleiroJogo(new int[][] {
                 new int[]{ 0, 2, 1 },
                 new int[] { 0, 2, 0 },
                 new int[] { 1, 2, 2 } });
 
-            Assert.AreEqual(2, tabuleiro.VerificarGanhador());
+            Assert.AreEqual(2, tabuleiro.Ganhador);
 
 
             tabuleiro = new TabuleiroJogo(new int[][] {
@@ -66,14 +66,14 @@ namespace JogoDaVelhaTeste
                 new int[] { 0, 1, 0 },
                 new int[] { 2, 2, 1 } });
 
-            Assert.AreEqual(1, tabuleiro.VerificarGanhador());
+            Assert.AreEqual(1, tabuleiro.Ganhador);
 
             tabuleiro = new TabuleiroJogo(new int[][] {
                 new int[] { 2, 2, 1 },
                 new int[] { 0, 1, 0 },
                 new int[] { 1, 2, 1 } });
 
-            Assert.AreEqual(1, tabuleiro.VerificarGanhador());
+            Assert.AreEqual(1, tabuleiro.Ganhador);
         }
     }
 }

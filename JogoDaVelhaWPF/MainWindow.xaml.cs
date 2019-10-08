@@ -79,7 +79,7 @@ namespace JogoDaVelhaWPF
             try
             {
                 this.Tabuleiro.Jogar(this.Tabuleiro.JogadorAtual, posX, posY);
-                var estado = this.Tabuleiro.VerificarGanhador();
+                var estado = this.Tabuleiro.Ganhador;
                 if (estado != 0)
                 {
                     ProcedimentosFinalJogo(estado);
