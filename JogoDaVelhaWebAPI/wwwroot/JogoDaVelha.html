@@ -17,8 +17,21 @@
         }
 
         div.row {
+            /*
+                O que é Flex?
+                https://origamid.com/projetos/flexbox-guia-completo/
+            */
             display: flex;
+            /* 
+                Por que Justify Content:
+                https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+            */
             justify-content: flex-start;
+            /*
+                Align-Items:
+                Item 6 do link
+                https://origamid.com/projetos/flexbox-guia-completo/
+            */
             align-items: center;
         }
 
@@ -26,12 +39,35 @@
             width: 200px;
             height: 200px;
             border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content:center;
         }
 
-            div.square:hover {
-                cursor: pointer;
-                background-color: #F9F9F9;
+        div.square:hover {
+            cursor: pointer;
+            background-color: #F9F9F9;
+        }
+
+        div.Jogador2 {
+            color: red;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 180px;
+            font-weight: bold;
+        }
+
+            div.Jogador2::after {
+                content: "X";
             }
+
+
+        div.Jogador1 {
+            border: 20px solid green;
+            border-radius: 50%; 
+            height: 60%;
+            width: 60%;
+            margin:10%;
+        }
 
         div.row:nth-child(1) div.square {
             border-top: none;
@@ -71,19 +107,37 @@
     <button onclick="IniciarJogo()">Iniciar Jogo</button>
     <div class="tabuleiro">
         <div class="row">
-            <div class="square" id="00" onclick="Jogar(0,0)"></div>
-            <div class="square" id="01" onclick="Jogar(0,1)"></div>
-            <div class="square" id="02" onclick="Jogar(0,2)"></div>
+            <div class="square" id="s00" onclick="Jogar(0,0)">
+                <div id="Conteudo" ></div>
+            </div>
+            <div class="square" id="s01" onclick="Jogar(0,1)">
+                <div id="Conteudo" ></div>
+            </div>
+            <div class="square" id="s02" onclick="Jogar(0,2)">
+                <div id="Conteudo"></div>
+            </div>
         </div>
         <div class="row">
-            <div class="square"  id="10" onclick="Jogar(1,0)"></div>
-            <div class="square"  id="11" onclick="Jogar(1,1)"></div>
-            <div class="square"  id="12" onclick="Jogar(1,2)"></div>
+            <div class="square" id="s10" onclick="Jogar(1,0)">
+                <div id="Conteudo" class="Jogador1"></div>
+            </div>
+            <div class="square" id="s11" onclick="Jogar(1,1)">
+                <div id="Conteudo" class="Jogador1"></div>
+            </div>
+            <div class="square" id="s12" onclick="Jogar(1,2)">
+                <div id="Conteudo" class="Jogador2"></div>
+            </div>
         </div>                   
         <div class="row">        
-            <div class="square"  id="20" onclick="Jogar(2,0)"></div>
-            <div class="square"  id="21" onclick="Jogar(2,1)"></div>
-            <div class="square"  id="22" onclick="Jogar(2,2)"></div>
+            <div class="square" id="s20" onclick="Jogar(2,0)">
+                <div id="Conteudo"></div>
+            </div>
+            <div class="square" id="s21" onclick="Jogar(2,1)">
+                <div id="Conteudo"></div>
+            </div>
+            <div class="square" id="s22" onclick="Jogar(2,2)">
+                <div id="Conteudo"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -120,6 +174,37 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     Tabuleiro = this.response;
+                    for (var v = 0; v < 3; v++) {
+                        for (var h = 0; h < 3; h++) {
+                            var conteudo = document.querySelector("#s" + h + v).querySelector("#Conteudo");
+                            switch (Tabuleiro.tabuleiro[v][h]) {
+                                case 0:
+                                    if (conteudo.classList.contains("Jogador1")) {
+                                        conteudo.classList.remove("Jogador1");
+                                    }
+                                    if (conteudo.classList.contains("Jogador2")) {
+                                        conteudo.classList.remove("Jogador2");
+                                    }
+                                    break;
+                                case 1:
+                                    if (conteudo.classList.contains("Jogador2")) {
+                                        conteudo.classList.remove("Jogador2");
+                                    }
+                                    if (!conteudo.classList.contains("Jogador1")) {
+                                        conteudo.classList.toggle("Jogador1");
+                                    }
+                                    break;
+                                case 2:
+                                    if (conteudo.classList.contains("Jogador1")) {
+                                        conteudo.classList.remove("Jogador1");
+                                    }
+                                    if (!conteudo.classList.contains("Jogador2")) {
+                                        conteudo.classList.toggle("Jogador2");
+                                    }
+                                    break;
+                            }
+                        }
+                    }
                 }
             };
             xhttp.open("GET",
